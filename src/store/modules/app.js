@@ -1,20 +1,20 @@
-import storage from 'store'
 import {
   SIDEBAR_TYPE,
-  TOGGLE_MOBILE_TYPE,
-  TOGGLE_NAV_THEME,
-  TOGGLE_LAYOUT,
+  TOGGLE_COLOR,
+  TOGGLE_CONTENT_WIDTH,
   TOGGLE_FIXED_HEADER,
   TOGGLE_FIXED_SIDEBAR,
-  TOGGLE_CONTENT_WIDTH,
   TOGGLE_HIDE_HEADER,
-  TOGGLE_COLOR,
-  TOGGLE_WEAK,
+  TOGGLE_LAYOUT,
+  TOGGLE_MOBILE_TYPE,
   TOGGLE_MULTI_TAB,
   // i18n
-  APP_LANGUAGE
+  // APP_LANGUAGE
+  TOGGLE_NAV_THEME,
+  TOGGLE_WEAK
 } from '@/store/mutation-types'
-import { loadLanguageAsync } from '@/locales'
+import storage from 'store'
+// import { loadLanguageAsync } from '@/locales'
 
 const app = {
   state: {
@@ -72,18 +72,18 @@ const app = {
       state.weak = mode
       storage.set(TOGGLE_WEAK, mode)
     },
-    [APP_LANGUAGE]: (state, lang, antd = {}) => {
+    /* [APP_LANGUAGE]: (state, lang, antd = {}) => {
       state.lang = lang
       state._antLocale = antd
       storage.set(APP_LANGUAGE, lang)
-    },
+    }, */
     [TOGGLE_MULTI_TAB]: (state, bool) => {
       storage.set(TOGGLE_MULTI_TAB, bool)
       state.multiTab = bool
     }
   },
   actions: {
-    setLang ({ commit }, lang) {
+    /* setLang ({ commit }, lang) {
       return new Promise((resolve, reject) => {
         commit(APP_LANGUAGE, lang)
         loadLanguageAsync(lang).then(() => {
@@ -92,7 +92,7 @@ const app = {
           reject(e)
         })
       })
-    }
+    } */
   }
 }
 

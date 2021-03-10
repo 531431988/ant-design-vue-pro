@@ -2,9 +2,6 @@
 
   <div id="userLayout" :class="['user-layout-wrapper', isMobile && 'mobile']">
     <div class="container">
-      <div class="user-layout-lang">
-        <select-lang class="select-lang-trigger" />
-      </div>
       <div class="user-layout-content">
         <div class="top">
           <div class="header">
@@ -37,12 +34,10 @@
 
 <script>
 import { deviceMixin } from '@/store/device-mixin'
-import SelectLang from '@/components/SelectLang'
 
 export default {
   name: 'UserLayout',
   components: {
-    SelectLang
   },
   mixins: [deviceMixin],
   mounted () {
@@ -75,24 +70,6 @@ export default {
     //padding: 50px 0 84px;
     position: relative;
 
-    .user-layout-lang {
-      width: 100%;
-      height: 40px;
-      line-height: 44px;
-      text-align: right;
-
-      .select-lang-trigger {
-        cursor: pointer;
-        padding: 12px;
-        margin-right: 24px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 18px;
-        vertical-align: middle;
-      }
-    }
-
     .user-layout-content {
       padding: 32px 0 24px;
 
@@ -122,7 +99,7 @@ export default {
 
           .title {
             font-size: 33px;
-            color: rgba(0, 0, 0, .85);
+            color: rgba(0, 0, 0, 0.85);
             font-family: Avenir, 'Helvetica Neue', Arial, Helvetica, sans-serif;
             font-weight: 600;
             position: relative;
@@ -172,7 +149,6 @@ export default {
     a {
       text-decoration: none;
     }
-
   }
 }
 </style>

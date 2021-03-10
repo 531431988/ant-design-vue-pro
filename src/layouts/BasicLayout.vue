@@ -1,20 +1,12 @@
 <template>
-  <pro-layout
-    :menus="menus"
-    :collapsed="collapsed"
-    :mediaQuery="query"
-    :isMobile="isMobile"
-    :handleMediaQuery="handleMediaQuery"
-    :handleCollapse="handleCollapse"
-    :i18nRender="i18nRender"
-    v-bind="settings"
-  >
-    <!-- Ads begin
-      广告代码 真实项目中请移除
-      production remove this Ads
-    -->
-    <ads v-if="isProPreviewSite && !collapsed"/>
-    <!-- Ads end -->
+  <pro-layout :menus="menus" :collapsed="collapsed" :mediaQuery="query" :isMobile="isMobile" :handleMediaQuery="handleMediaQuery" :handleCollapse="handleCollapse" :i18nRender="t => t" v-bind="settings">
+
+    <!-- layout content -->
+    <a-layout-content :style="{ height: '100%', paddingTop: fixedMultiTab ? '64px' : '0' }">
+      <multi-tab v-if="multiTab" :class="{'fixed-multi-tab':fixedMultiTab}" :style="style"></multi-tab>
+      <transition name="page-transition">
+      </transition>
+    </a-layout-content>
 
     <!-- 1.0.0+ 版本 pro-layout 提供 API，
           我们推荐使用这种方式进行 LOGO 和 title 自定义
@@ -35,12 +27,6 @@
         </a-tooltip>
       </div>
     </template>
-
-    <setting-drawer :settings="settings" @change="handleSettingChange">
-      <div style="margin: 12px 0;">
-        This is SettingDrawer custom footer content.
-      </div>
-    </setting-drawer>
     <template v-slot:rightContentRender>
       <right-content :top-menu="settings.layout === 'topmenu'" :is-mobile="isMobile" :theme="settings.theme" />
     </template>
@@ -53,31 +39,30 @@
 </template>
 
 <script>
-import { SettingDrawer, updateTheme } from '@ant-design-vue/pro-layout'
-import { i18nRender } from '@/locales'
+
+import { updateTheme } from '@ant-design-vue/pro-layout'
 import { mapState } from 'vuex'
 import { CONTENT_WIDTH_TYPE, SIDEBAR_TYPE, TOGGLE_MOBILE_TYPE } from '@/store/mutation-types'
 
 import defaultSettings from '@/config/defaultSettings'
 import RightContent from '@/components/GlobalHeader/RightContent'
 import GlobalFooter from '@/components/GlobalFooter'
-import Ads from '@/components/Other/CarbonAds'
 import LogoSvg from '../assets/logo.svg?inline'
 
 export default {
   name: 'BasicLayout',
   components: {
-    SettingDrawer,
     RightContent,
     GlobalFooter,
-    LogoSvg,
-    Ads
+    LogoSvg
   },
   data () {
     return {
       // preview.pro.antdv.com only use.
       isProPreviewSite: process.env.VUE_APP_PREVIEW === 'true' && process.env.NODE_ENV !== 'development',
       // end
+      multiTab: defaultSettings.multiTab,
+      fixedMultiTab: defaultSettings.fixedHeader,
 
       // base
       menus: [],
@@ -96,7 +81,7 @@ export default {
         fixedHeader: defaultSettings.fixedHeader,
         fixSiderbar: defaultSettings.fixSiderbar,
         colorWeak: defaultSettings.colorWeak,
-
+        multiTab: defaultSettings.multiTab,
         hideHintAlert: false,
         hideCopyButton: false
       },
@@ -111,7 +96,13 @@ export default {
     ...mapState({
       // 动态主路由
       mainMenu: state => state.permission.addRouters
-    })
+    }),
+    style () {
+      const { settings: { layout }, collapsed } = this
+      return {
+        width: (layout === 'sidemenu' && collapsed) || layout === 'topmenu' ? '100%' : 'calc(100% - 250px)'
+      }
+    }
   },
   created () {
     const routes = this.mainMenu.find(item => item.path === '/')
@@ -142,7 +133,6 @@ export default {
     }
   },
   methods: {
-    i18nRender,
     handleMediaQuery (val) {
       this.query = val
       if (this.isMobile && !val['screen-xs']) {
@@ -181,5 +171,15 @@ export default {
 </script>
 
 <style lang="less">
-@import "./BasicLayout.less";
+@import './BasicLayout.less';
+.ant-pro-multi-tab.fixed-multi-tab {
+  position: fixed;
+  top: 64px;
+  right: 0;
+  z-index: 9;
+  width: 100%;
+  height: 62px;
+  transition: width 0.2s;
+  margin: 0;
+}
 </style>
