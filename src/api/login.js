@@ -40,20 +40,22 @@ export function getSmsCaptcha (parameter) {
   })
 }
 
-export function getInfo () {
+export function getInfo (params) {
   return request({
     url: userApi.UserInfo,
     method: 'get',
     headers: {
       'Content-Type': 'application/json;charset=UTF-8'
-    }
+    },
+    params
   })
 }
 
-export function getCurrentUserNav () {
+export function getCurrentUserNav (params) {
   return request({
     url: userApi.UserMenu,
-    method: 'get'
+    method: 'get',
+    params
   })
 }
 

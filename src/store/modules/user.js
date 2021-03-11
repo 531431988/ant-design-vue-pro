@@ -1,7 +1,7 @@
-import storage from 'store'
-import { login, getInfo, logout } from '@/api/login'
+import { getInfo, login } from '@/api/login'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 import { welcome } from '@/utils/util'
+import storage from 'store'
 
 const user = {
   state: {
@@ -48,9 +48,9 @@ const user = {
     },
 
     // 获取用户信息
-    GetInfo ({ commit }) {
+    GetInfo ({ commit }, id) {
       return new Promise((resolve, reject) => {
-        getInfo().then(response => {
+        getInfo({ id: storage.get(ACCESS_TOKEN) }).then(response => {
           const result = response.result
 
           if (result.role && result.role.permissions.length > 0) {
@@ -82,7 +82,11 @@ const user = {
     // 登出
     Logout ({ commit, state }) {
       return new Promise((resolve) => {
-        logout(state.token).then(() => {
+        commit('SET_TOKEN', '')
+        commit('SET_ROLES', [])
+        storage.remove(ACCESS_TOKEN)
+        resolve()
+        /* logout(state.token).then(() => {
           commit('SET_TOKEN', '')
           commit('SET_ROLES', [])
           storage.remove(ACCESS_TOKEN)
@@ -90,7 +94,7 @@ const user = {
         }).catch(() => {
           resolve()
         }).finally(() => {
-        })
+        }) */
       })
     }
 

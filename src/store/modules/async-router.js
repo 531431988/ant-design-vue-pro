@@ -18,8 +18,8 @@ const permission = {
   actions: {
     GenerateRoutes ({ commit }, data) {
       return new Promise(resolve => {
-        const { token } = data
-        generatorDynamicRouter(token).then(routers => {
+        // 根据用户ID获取菜单
+        generatorDynamicRouter({ id: data.roles.id }).then(routers => {
           commit('SET_ROUTERS', routers)
           resolve()
         })
