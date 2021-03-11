@@ -1,34 +1,115 @@
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>logo.png">
-    <title>Ant Design Pro</title>
-    <style>.first-loading-wrp{display:flex;justify-content:center;align-items:center;flex-direction:column;min-height:420px;height:100%}.first-loading-wrp>h1{font-size:128px}.first-loading-wrp .loading-wrp{padding:98px;display:flex;justify-content:center;align-items:center}.dot{animation:antRotate 1.2s infinite linear;transform:rotate(45deg);position:relative;display:inline-block;font-size:32px;width:32px;height:32px;box-sizing:border-box}.dot i{width:14px;height:14px;position:absolute;display:block;background-color:#1890ff;border-radius:100%;transform:scale(.75);transform-origin:50% 50%;opacity:.3;animation:antSpinMove 1s infinite linear alternate}.dot i:nth-child(1){top:0;left:0}.dot i:nth-child(2){top:0;right:0;-webkit-animation-delay:.4s;animation-delay:.4s}.dot i:nth-child(3){right:0;bottom:0;-webkit-animation-delay:.8s;animation-delay:.8s}.dot i:nth-child(4){bottom:0;left:0;-webkit-animation-delay:1.2s;animation-delay:1.2s}@keyframes antRotate{to{-webkit-transform:rotate(405deg);transform:rotate(405deg)}}@-webkit-keyframes antRotate{to{-webkit-transform:rotate(405deg);transform:rotate(405deg)}}@keyframes antSpinMove{to{opacity:1}}@-webkit-keyframes antSpinMove{to{opacity:1}}</style>
-    <!-- require cdn assets css -->
-    <% for (var i in htmlWebpackPlugin.options.cdn && htmlWebpackPlugin.options.cdn.css) { %>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="icon" href="<%= BASE_URL %>logo.png">
+  <title>Ant Design Pro</title>
+  <style>
+    .first-loading-wrp {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      min-height: 420px;
+      height: 100%
+    }
+
+    .loading {
+      display: flex;
+    }
+
+    .loading span {
+      display: inline-block;
+      vertical-align: middle;
+      width: 1em;
+      height: 1em;
+      margin: 0 .2em;
+      background: #007DB6;
+      border-radius: .6em;
+      animation: loading 1s infinite alternate;
+    }
+
+    /*
+ * Dots Colors
+ * Smarter targeting vs nth-of-type?
+ */
+    .loading span:nth-of-type(2) {
+      background: #008FB2;
+      animation-delay: 0.2s;
+    }
+
+    .loading span:nth-of-type(3) {
+      background: #009B9E;
+      animation-delay: 0.4s;
+    }
+
+    .loading span:nth-of-type(4) {
+      background: #00A77D;
+      animation-delay: 0.6s;
+    }
+
+    .loading span:nth-of-type(5) {
+      background: #00B247;
+      animation-delay: 0.8s;
+    }
+
+    .loading span:nth-of-type(6) {
+      background: #5AB027;
+      animation-delay: 1.0s;
+    }
+
+    .loading span:nth-of-type(7) {
+      background: #A0B61E;
+      animation-delay: 1.2s;
+    }
+
+    /*
+ * Animation keyframes
+ * Use transition opacity instead of keyframes?
+ */
+    @keyframes loading {
+      0% {
+        opacity: 0;
+      }
+
+      100% {
+        opacity: 1;
+      }
+    }
+  </style>
+  <!-- require cdn assets css -->
+  <% for (var i in htmlWebpackPlugin.options.cdn && htmlWebpackPlugin.options.cdn.css) { %>
     <link rel="stylesheet" href="<%= htmlWebpackPlugin.options.cdn.css[i] %>" />
     <% } %>
-  </head>
-  <body>
-    <noscript>
-      <strong>We're sorry but vue-antd-pro doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
-    <div id="app">
-      <div class="first-loading-wrp">
-        <h1>Pro</h1>
-        <div class="loading-wrp">
-          <span class="dot dot-spin"><i></i><i></i><i></i><i></i></span>
-        </div>
-        <div style="display: flex; justify-content: center; align-items: center;">Ant Design</div>
+</head>
+
+<body>
+  <noscript>
+    <strong>We're sorry but vue-antd-pro doesn't work properly without JavaScript enabled. Please enable it to
+      continue.</strong>
+  </noscript>
+  <div id="app">
+    <div class="first-loading-wrp">
+      <h2>Ant Design Pro</h2>
+      <div class="loading">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
     </div>
-    <!-- require cdn assets js -->
-    <% for (var i in htmlWebpackPlugin.options.cdn && htmlWebpackPlugin.options.cdn.js) { %>
+  </div>
+  <!-- require cdn assets js -->
+  <% for (var i in htmlWebpackPlugin.options.cdn && htmlWebpackPlugin.options.cdn.js) { %>
     <script type="text/javascript" src="<%= htmlWebpackPlugin.options.cdn.js[i] %>"></script>
     <% } %>
-    <!-- built files will be auto injected -->
-  </body>
+      <!-- built files will be auto injected -->
+</body>
+
 </html>

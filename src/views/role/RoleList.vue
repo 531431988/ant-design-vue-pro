@@ -43,11 +43,7 @@
                   {{ permission.name }}：
                 </a-col>
                 <a-col :xl="20" :lg="24">
-                  <a-checkbox
-                    v-if="permission.actionsOptions.length > 0"
-                    :indeterminate="permission.indeterminate"
-                    :checked="permission.checkedAll"
-                    @change="onChangeCheckAll($event, permission)">
+                  <a-checkbox v-if="permission.actionsOptions.length > 0" :indeterminate="permission.indeterminate" :checked="permission.checkedAll" @change="onChangeCheckAll($event, permission)">
                     全选
                   </a-checkbox>
                   <a-checkbox-group :options="permission.actionsOptions" v-model="permission.selected" @change="onChangeCheck(permission)" />
@@ -65,9 +61,15 @@
 <script>
 import pick from 'lodash.pick'
 import { getRoleList, getPermissions } from '@/api/manage'
-import { actionToObject } from '@/utils/permissions'
 import { baseMixin } from '@/store/app-mixin'
-
+const actionToObject = (json) => {
+  try {
+    return JSON.parse(json)
+  } catch (e) {
+    console.log('err', e.message)
+  }
+  return []
+}
 export default {
   name: 'RoleList',
   mixins: [baseMixin],
@@ -165,5 +167,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

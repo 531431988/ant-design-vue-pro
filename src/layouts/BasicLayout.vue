@@ -3,7 +3,7 @@
 
     <!-- layout content -->
     <a-layout-content :style="{ height: '100%', paddingTop: fixedMultiTab ? '64px' : '0' }">
-      <multi-tab v-if="multiTab" :class="{'fixed-multi-tab':fixedMultiTab}" :style="style"></multi-tab>
+      <multi-tab v-if="multiTab && !isMobile" :class="{'fixed-multi-tab':fixedMultiTab}" :style="style"></multi-tab>
       <transition name="page-transition">
       </transition>
     </a-layout-content>
@@ -182,4 +182,42 @@ export default {
   transition: width 0.2s;
   margin: 0;
 }
+.ant-pro-top-nav-header-menu {
+  max-width: inherit !important;
+}
+.ant-pro-top-nav-header {
+  .ant-menu {
+    background: transparent;
+  }
+}
+</style>
+<style lang="less">
+.ant-menu {
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.2);
+  }
+}
+/* .ant-pro-sider-menu-logo,
+.ant-pro-top-nav-header,
+.ant-menu-dark,
+.ant-menu-dark .ant-menu-sub,
+.ant-menu-dark .ant-menu-inline.ant-menu-sub {
+  background: linear-gradient(90deg, #006cff, #399efd);
+}
+.ant-menu-dark .ant-menu-inline.ant-menu-sub {
+  box-shadow: none;
+}
+.ant-menu-submenu {
+  color: #fff;
+  .ant-menu-sub {
+    .ant-menu-submenu,
+    .ant-menu-item > a {
+      color: #fff;
+    }
+  }
+} */
 </style>

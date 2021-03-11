@@ -12,13 +12,8 @@
           <div class="cardItemContent">
             <span>{{ item.updatedAt | fromNow }}</span>
             <div class="avatarList">
-              <avatar-list size="mini">
-                <avatar-list-item
-                  v-for="(member, i) in item.members"
-                  :key="`${item.id}-avatar-${i}`"
-                  :src="member.avatar"
-                  :tips="member.name"
-                />
+              <avatar-list size="default">
+                <avatar-list-item v-for="(member, i) in item.members" :key="`${item.id}-avatar-${i}`" :src="member.avatar" :tips="member.name" />
               </avatar-list>
             </div>
           </div>
@@ -32,7 +27,7 @@
 import moment from 'moment'
 import { TagSelect, StandardFormRow, Ellipsis, AvatarList } from '@/components'
 const TagSelectOption = TagSelect.Option
-const AvatarListItem = AvatarList.AvatarItem
+const AvatarListItem = AvatarList.Item
 
 export default {
   name: 'Project',
@@ -75,35 +70,35 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  .ant-pro-pages-account-projects-cardList {
-    margin-top: 24px;
+.ant-pro-pages-account-projects-cardList {
+  margin-top: 24px;
 
-    /deep/ .ant-card-meta-title {
-      margin-bottom: 4px;
+  /deep/ .ant-card-meta-title {
+    margin-bottom: 4px;
+  }
+
+  /deep/ .ant-card-meta-description {
+    height: 44px;
+    overflow: hidden;
+    line-height: 22px;
+  }
+
+  .cardItemContent {
+    display: flex;
+    height: 20px;
+    margin-top: 16px;
+    margin-bottom: -4px;
+    line-height: 20px;
+
+    > span {
+      flex: 1 1;
+      color: rgba(0, 0, 0, 0.45);
+      font-size: 12px;
     }
 
-    /deep/ .ant-card-meta-description {
-      height: 44px;
-      overflow: hidden;
-      line-height: 22px;
-    }
-
-    .cardItemContent {
-      display: flex;
-      height: 20px;
-      margin-top: 16px;
-      margin-bottom: -4px;
-      line-height: 20px;
-
-      > span {
-        flex: 1 1;
-        color: rgba(0,0,0,.45);
-        font-size: 12px;
-      }
-
-      /deep/ .ant-pro-avatar-list {
-        flex: 0 1 auto;
-      }
+    /deep/ .ant-pro-avatar-list {
+      flex: 0 1 auto;
     }
   }
+}
 </style>

@@ -1,6 +1,6 @@
 // eslint-disable-next-line
 import { bxAnaalyse } from '@/core/icons'
-import { BasicLayout, RouteView, UserLayout } from '@/layouts'
+import { BasicLayout, PageView, RouteView, UserLayout } from '@/layouts'
 
 /* 存在问题解决，之前操作步骤会存在返回原来的页签刷新页签的问题，通过评论区网友的建议，替换router.config.js中的RouterView能解决这个问题
   const RouteView = {
@@ -33,8 +33,14 @@ export const asyncRouterMap = [
           // 外部链接
           {
             path: 'https://www.baidu.com/',
+            name: 'baidu',
+            meta: { title: '百度', target: '_blank' }
+          },
+          {
+            path: '/dashboard/monitor',
             name: 'Monitor',
-            meta: { title: '监控页', target: '_blank' }
+            component: () => import('@/views/dashboard/Monitor'),
+            meta: { title: '监控页' }
           },
           {
             path: '/dashboard/workplace',
@@ -268,27 +274,27 @@ export const asyncRouterMap = [
             ]
           }
         ]
-      }
+      },
 
       // other
-      /*
+
       {
         path: '/other',
         name: 'otherPage',
         component: PageView,
-        meta: { title: '其他组件', icon: 'slack', permission: [ 'dashboard' ] },
+        meta: { title: '其他组件', icon: 'slack', permission: ['dashboard'] },
         redirect: '/other/icon-selector',
         children: [
           {
             path: '/other/icon-selector',
             name: 'TestIconSelect',
             component: () => import('@/views/other/IconSelectorView'),
-            meta: { title: 'IconSelector', icon: 'tool', keepAlive: true, permission: [ 'dashboard' ] }
+            meta: { title: 'IconSelector', icon: 'tool', keepAlive: true, permission: ['dashboard'] }
           },
           {
             path: '/other/list',
             component: RouteView,
-            meta: { title: '业务布局', icon: 'layout', permission: [ 'support' ] },
+            meta: { title: '业务布局', icon: 'layout', permission: ['support'] },
             redirect: '/other/list/tree-list',
             children: [
               {
@@ -331,7 +337,7 @@ export const asyncRouterMap = [
           }
         ]
       }
-      */
+
     ]
   },
   {

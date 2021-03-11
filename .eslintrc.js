@@ -21,6 +21,7 @@ module.exports = {
     'vue/html-closing-bracket-newline': 0,
     'vue/no-parsing-error': 0,
     'no-tabs': 0,
+    'no-return-assign': 'off',
     quotes: [
       2,
       'single',
