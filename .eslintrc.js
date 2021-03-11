@@ -22,6 +22,7 @@ module.exports = {
     'vue/no-parsing-error': 0,
     'no-tabs': 0,
     'no-return-assign': 'off',
+    'no-unused-vars': 'off',
     quotes: [
       2,
       'single',

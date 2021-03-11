@@ -13,7 +13,7 @@ function resolve (dir) {
 function getGitHash () {
   try {
     return GitRevision.version()
-  } catch (e) {}
+  } catch (e) { }
   return 'unknown'
 }
 
@@ -92,7 +92,6 @@ const vueConfig = {
 
           // 'primary-color': '#F5222D',
           // 'link-color': '#F5222D',
-          'border-radius-base': '2px'
         },
         // DO NOT REMOVE THIS LINE
         javascriptEnabled: true
@@ -102,15 +101,18 @@ const vueConfig = {
 
   devServer: {
     // development server port 8000
-    port: 8000
+    port: 8000,
     // If you want to turn on the proxy, please remove the mockjs /src/main.jsL11
-    // proxy: {
-    //   '/api': {
-    //     target: 'https://mock.ihx.me/mock/5baf3052f7da7e07e04a5116/antd-pro',
-    //     ws: false,
-    //     changeOrigin: true
-    //   }
-    // }
+    proxy: {
+      '/api': {
+        target: 'https://anymock.alipay.com/direct-mock/http/128500011',
+        ws: false,
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': ''
+        }
+      }
+    }
   },
 
   // disable source map in production

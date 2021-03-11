@@ -10,7 +10,7 @@ import './core/lazy_use' // use lazy load components
 import './global.less' // global style
 // mock
 // WARNING: `mockjs` NOT SUPPORT `IE` PLEASE DO NOT USE IN `production` ENV.
-import './mock'
+// import './mock'
 import './permission' // permission control
 import router from './router'
 import store from './store/'
