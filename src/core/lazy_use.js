@@ -1,62 +1,54 @@
-import Vue from 'vue'
-
 // base library
 import {
+  Alert,
+  Avatar,
+  BackTop,
+  Badge,
+  Breadcrumb,
+  Button,
+  Card,
+  Checkbox,
+  Col,
   ConfigProvider,
-  Layout,
+  DatePicker,
+  Descriptions,
+  Divider,
+  Drawer,
+  Dropdown,
+  Form,
+  Icon,
   Input,
   InputNumber,
-  Button,
-  Switch,
-  Radio,
-  Checkbox,
-  Select,
-  Card,
-  Form,
-  Row,
-  Col,
+  Layout,
+  List,
+  Menu,
+  message,
   Modal,
+  notification,
+  PageHeader,
+  Popconfirm,
+  Popover,
+  Progress,
+  Radio,
+  Result,
+  Row,
+  Select,
+  Skeleton,
+  Space,
+  Spin,
+  Statistic,
+  Steps,
+  Switch,
   Table,
   Tabs,
-  Icon,
-  Badge,
-  Popover,
-  Dropdown,
-  List,
-  Avatar,
-  Breadcrumb,
-  Steps,
-  Spin,
-  Menu,
-  Drawer,
-  Tooltip,
-  Alert,
   Tag,
-  Divider,
-  DatePicker,
   TimePicker,
-  Upload,
-  Progress,
-  Skeleton,
-  Popconfirm,
-  PageHeader,
-  Result,
-  Statistic,
-  Descriptions,
-  Space,
-  message,
-  notification
+  Tooltip,
+  Upload
 } from 'ant-design-vue'
-import Viser from 'viser-vue'
+import Vue from 'vue'
 
-// ext library
-import VueCropper from 'vue-cropper'
-import Dialog from '@/components/Dialog'
-import MultiTab from '@/components/MultiTab'
-import PageLoading from '@/components/PageLoading'
-import PermissionHelper from '@/core/permission/permission'
-import './directives/action'
-
+Vue.use(BackTop)
 Vue.use(ConfigProvider)
 Vue.use(Layout)
 Vue.use(Input)
@@ -107,12 +99,5 @@ Vue.prototype.$info = Modal.info
 Vue.prototype.$success = Modal.success
 Vue.prototype.$error = Modal.error
 Vue.prototype.$warning = Modal.warning
-
-Vue.use(Viser)
-Vue.use(Dialog) // this.$dialog func
-Vue.use(MultiTab)
-Vue.use(PageLoading)
-Vue.use(PermissionHelper)
-Vue.use(VueCropper)
 
 process.env.NODE_ENV !== 'production' && console.warn('[antd-pro] NOTICE: Antd use lazy-load.')

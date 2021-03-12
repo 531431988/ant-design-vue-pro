@@ -5,8 +5,8 @@
         <s-tree :dataSource="orgTree" :openKeys.sync="openKeys" :search="true" @click="handleClick" @add="handleAdd" @titleClick="handleTitleClick"></s-tree>
       </a-col>
       <a-col :span="19">
-        <a-table :data-source="tableData" :pagination="false">
-          <a-table-column title="菜单名" data-index="name" width="30%" />
+        <a-table :data-source="tableData" :pagination="false" rowKey="id" defaultExpandAllRows>
+          <a-table-column title="菜单名" data-index="title" width="30%" />
           <a-table-column title="页面权限" data-index="show" width="100px">
             <template #default="text, params">
               <a-switch v-model="params.show" v-if="params.children && params.children.length" checked-children="有权限" un-checked-children="无权限" @change="e => onSwitch(e, params)"></a-switch>
@@ -46,6 +46,22 @@ import STree from '@/components/Tree/Tree'
 import { STable } from '@/components'
 import OrgModal from './modules/OrgModal'
 import { getOrgTree } from '@/api/manage'
+import { mapGetters } from 'vuex'
+// 演示数据-根据用户菜单初始化表格数据   实际开发中需要请求完整的菜单树
+const initTableData = (data, actions) => {
+  return data.map(item => {
+    const current = {
+      title: item.meta.title,
+      id: item.name,
+      show: true, // 是否可访问菜单
+      actions // 页面操作相关的权限
+    }
+    if (item.children && item.children.length > 0) {
+      current.children = initTableData(item.children, ['add'])
+    }
+    return current
+  })
+}
 // 更新表格数据状态
 const updateTableData = data => {
   data.map(item => {
@@ -67,7 +83,7 @@ export default {
       openKeys: ['key-01'],
       actionsList: [{ label: '新增', value: 'add' }, { label: '删除', value: 'del' }, { label: '编辑', value: 'edit' }, { label: '查询', value: 'query' }, { label: '导入', value: 'import' }, { label: '导出', value: 'export' }, { label: '下载', value: 'download' }],
       tableData: [
-        {
+        /* {
           key: 1,
           name: '首页',
           show: false,
@@ -98,7 +114,7 @@ export default {
               actions: ['add', 'del', 'edit', 'query', 'import', 'export', 'download']
             }
           ]
-        }
+        } */
       ],
       orgTree: [],
       selectedRowKeys: [],
@@ -109,6 +125,10 @@ export default {
     getOrgTree().then(res => {
       this.orgTree = res.result
     })
+    this.tableData = initTableData(this.addRouters[0].children)
+  },
+  computed: {
+    ...mapGetters(['addRouters'])
   },
   methods: {
     handleClick (e) {

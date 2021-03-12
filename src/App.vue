@@ -2,6 +2,7 @@
   <a-config-provider :locale="locale">
     <div id="app">
       <router-view />
+      <a-back-top />
     </div>
   </a-config-provider>
 </template>
